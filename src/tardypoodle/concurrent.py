@@ -22,6 +22,8 @@ def execute(config):
 
     logger.error("Concurrent requests don't work right now!")
 
+    sys.exit(1)
+
     counter = RequestCounter()
     counter.start()
 
