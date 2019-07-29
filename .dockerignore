@@ -1,0 +1,12 @@
+/.travis.yml
+/bin/
+/develop-eggs/
+/eggs/
+/parts/
+/src/*.egg-info
+/ansible.cfg
+/LICENSE-*
+/README.md
+/requirements.yml
+/vagrant.yml
+/Vagrantfile
