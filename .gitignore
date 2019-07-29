@@ -1,0 +1,27 @@
+/.ansible/galaxy-roles
+/.idea
+/.vagrant
+
+# buildout
+/.eggs/
+/.installed.cfg
+
+/bin/
+/build/
+/develop-eggs/
+/dist/
+/downloads/
+/eggs/
+/lib/
+/lib64/
+/parts/
+/sdist/
+/src/*.egg-info
+/var/
+/wheels/
+
+# python
+*.egg
+*.pyc
+*.pyo
+__pycache__/
