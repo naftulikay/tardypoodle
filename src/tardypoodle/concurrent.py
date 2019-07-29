@@ -11,27 +11,31 @@ import requests.sessions
 import sys
 
 
-def execute(url, headers={}, log_interval=15):
-    # keepalive
-    session = requests.sessions.session()
+def execute(config):
+    if config.keepalive:
+        requester = requests.sessions.session()
+    else:
+        requester = requests
 
     logger = logging.getLogger('tardypoodle.concurrent')
     logger.info("Starting concurrent (gevent) execution of requests...")
 
+    logger.error("Concurrent requests don't work right now!")
+
     counter = RequestCounter()
     counter.start()
 
-    last_log = log_interval
+    last_log = config.log_interval
 
     gevent.monkey.patch_all()
 
     try:
         while True:
-            gevent.spawn(send, logger=logger, counter=counter, session=session, url=url, headers=headers)
+            gevent.spawn(send, logger=logger, counter=counter, requester=requester, url=config.url, headers=config.headers)
 
             duration_seconds = counter.duration().seconds
 
-            if duration_seconds % log_interval == 0 and duration_seconds >= last_log:
+            if duration_seconds % config.log_interval == 0 and duration_seconds >= last_log:
                 logger.info("{}".format(counter))
                 last_log = duration_seconds + log_interval
     except KeyboardInterrupt:

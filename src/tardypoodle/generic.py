@@ -5,11 +5,11 @@ import httplib
 import requests
 
 
-def send(logger, counter, session, url, headers={}):
+def send(logger, counter, requester, url, headers={}):
     logger.debug("Issuing new request...")
 
     try:
-        r = session.get(url, headers=headers)
+        r = requester.get(url, headers=headers)
     except httplib.HTTPException as e:
         logger.error("Received httplib exception during request: {}".format(e))
         counter.failed_http()
