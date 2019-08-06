@@ -53,15 +53,15 @@ class LoggingFormatter(logging.Formatter):
 class RequestCounter(object):
 
     def __init__(self):
-        self.total, self.successful, self.failed, self.failed_http, self.failed_tcp = 0, 0, 0, 0, 0
+        self.total, self.successful, self.failed, self.http_failures, self.tcp_failures = 0, 0, 0, 0, 0
         self.began, self.ended = None, None
 
     def __str__(self):
         return "{} Total Requests, {} Successful Requests, {} Failed Requests ({} TCP, {} HTTP)".format(self.total,
                                                                                                         self.successful,
                                                                                                         self.failed,
-                                                                                                        self.failed_tcp,
-                                                                                                        self.failed_http)
+                                                                                                        self.tcp_failures,
+                                                                                                        self.http_failures)
 
     def start(self):
         self.began = datetime.utcnow()
@@ -76,10 +76,10 @@ class RequestCounter(object):
         self.successful += 1
 
     def failed_http(self):
-        self.failed, self.failed_http = self.failed + 1, self.failed_http + 1
+        self.failed, self.http_failures = self.failed + 1, self.http_failures + 1
 
     def failed_tcp(self):
-        self.failed, self.failed_tcp = self.failed + 1, self.failed_tcp + 1
+        self.failed, self.tcp_failures = self.failed + 1, self.tcp_failures + 1
 
     def duration(self):
         if not self.began and not self.ended:
