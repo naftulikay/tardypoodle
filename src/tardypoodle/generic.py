@@ -23,3 +23,6 @@ def send(logger, counter, requester, url, headers={}):
     else:
         logger.debug("Successful request.")
         counter.success()
+
+    if r.headers.get('Connection', '').lower() == 'close':
+        logger.info("Received a connection close response from the server.")
